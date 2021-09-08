@@ -1,7 +1,8 @@
 const webpackBaseConfig = require('./webpack.base.config.js')
 const merge = require('webpack-merge')
 const path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = merge(webpackBaseConfig, {
   mode: "development",
@@ -12,6 +13,7 @@ module.exports = merge(webpackBaseConfig, {
   plugins: [new HtmlWebpackPlugin(
     {
       title: 'test environment',
+      template: 'src/template/index.ejs'
     }
   )],
   devServer: {
