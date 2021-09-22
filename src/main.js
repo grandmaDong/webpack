@@ -1,12 +1,11 @@
-import './main.css'
-console.log('test main')
+import './style/main.css'
+import 'hui/lib/hui.css'
 import Vue from 'vue'
 import App from './App.vue'
-import { Button } from 'hui'
-import 'hui/lib/hui.css'
+import HUI from 'hui'
 
-Vue.use(Button)
 
+Vue.use(HUI)
 new Vue({
     el: '#app',
     render: (h) => h(App)

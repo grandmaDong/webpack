@@ -1,6 +1,6 @@
 const path = require('path')
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
-const 
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 function resolve (dir) {
   return path.join(__dirname, dir);
@@ -14,10 +14,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(less|css)$/,
-        use: [
-          'style-loader', 'css-loader', 'less-loader'
-        ],
+        test: /\.css$/,
+        use: [ 'css-loader', 'postcss-loader' ]
+      },
+      {
+        test: /\.less$/i,
+        use: [ 'css-loader', 'less-loader' ]
       },
       {
         test: /\.vue$/,
@@ -32,32 +34,39 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
+          outputPath: 'images/'
         }
       },
-      {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,          
-        }
-      },
+      // {
+      //   test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+      //   loader: 'url-loader',
+      //   options: {
+      //     limit: 10000,          
+      //   }
+      // },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
+          outputPath: 'fonts/'
         }
       }
     ]
   },
   plugins: [
-    new vueLoaderPlugin()
+    new vueLoaderPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
       '@': resolve('../build'),
+      'Style': resolve('src/style'),
       vue$: 'vue/dist/vue.esm.js'
     }
-},
+  },
+  performance: {
+    hints: 'warning',
+    maxEntrypointSize: 400000
+  }
 }

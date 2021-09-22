@@ -1,0 +1,88 @@
+html,body {
+  height: 100%;
+}
+
+  /* 全局功能类样式 */
+html {
+  font-size: 87.5%;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+a[href]{
+  color: #337ab7;
+}
+a[href]:hover,
+.btn-blue:hover {
+  color: #ff9900;
+}
+
+  .el-button--primary {
+    background-color: #2080f7 !important;
+    border-color: #2080f7 !important;
+  }
+  .el-button--primary:hover {
+    background-color: #4c99f8  !important;
+    border-color: #4c99f8  !important;
+  }
+  .el-button--primary:active {
+    background-color: #1c72dd  !important;
+    border-color: #1c72dd  !important;
+  }
+
+  .center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .left{
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .space-between{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .wrap{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  html, body, h1, h2, h3, h4, h5, h6, div, dl, dt, dd, ul, ol, li, p, blockquote, pre, hr, figure, table, caption, th, td, form, fieldset, legend, input, button, textarea, menu {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+  font-family: 'iconfont';
+  src:  url('fonts/2a6923a5ca2e46725a28a7fffdf541c2.eot');
+  src:  url('fonts/2a6923a5ca2e46725a28a7fffdf541c2.eot') format('embedded-opentype'),
+    url('fonts/dadc5fc99ae2457522cad960544114ed.ttf') format('truetype'),
+    url('fonts/058ab5905b6d017aae305f4009e67471.woff') format('woff'),
+    url('170b5b88fbbfcf1f6c44a48ceba89a1c.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
