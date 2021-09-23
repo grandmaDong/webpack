@@ -1,6 +1,7 @@
 const path = require('path')
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 
 function resolve (dir) {
   return path.join(__dirname, dir);
@@ -14,8 +15,28 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [ 'css-loader', 'postcss-loader' ]
+        test: /\.s[ac]ss$/i,
+        use: [ 
+          MiniCssExtractPlugin.loader,
+          'css-loader' ,
+          'ssass-loader',
+          // 'postcss-loader'  // style-loader css-loader postcss-loader 区别
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env',
+                    {
+                      // 其他选项
+                    },
+                  ],
+                ],
+              },
+            }
+          }
+        ]
       },
       {
         test: /\.less$/i,
@@ -25,16 +46,17 @@ module.exports = {
         test: /\.vue$/,
         use: ['vue-loader']
       },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
-      },
+      // {
+      //   test: /\.scss$/,
+      //   use: ['style-loader', 'css-loader', 'sass-loader']
+      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          outputPath: 'images/'
+          outputPath: 'images/',
+          name: '[name].[ext]'
         }
       },
       // {
@@ -49,13 +71,17 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          outputPath: 'fonts/'
+          outputPath: 'fonts/',
+          name: '[name].[ext]'
         }
       }
     ]
   },
   plugins: [
     new vueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'index.css'
+    }),
   ],
   resolve: {
     extensions: ['.js', '.vue'],

@@ -73,16 +73,3 @@ a[href]:hover,
     margin: 0;
     padding: 0;
 }
-
-@font-face {
-  font-family: 'iconfont';
-  src:  url('fonts/2a6923a5ca2e46725a28a7fffdf541c2.eot');
-  src:  url('fonts/2a6923a5ca2e46725a28a7fffdf541c2.eot') format('embedded-opentype'),
-    url('fonts/dadc5fc99ae2457522cad960544114ed.ttf') format('truetype'),
-    url('fonts/058ab5905b6d017aae305f4009e67471.woff') format('woff'),
-    url('170b5b88fbbfcf1f6c44a48ceba89a1c.svg') format('svg');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-}
-
