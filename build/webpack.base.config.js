@@ -1,50 +1,94 @@
 const path = require('path')
 const vueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const happypack = require('happypack');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 
 function resolve (dir) {
   return path.join(__dirname, dir);
 }
 
+exports.assetsPath = function(_path) {
+  const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
+      './' : './'
+
+  return path.posix.join(assetsSubDirectory, _path)
+}
+
 module.exports = {
+  context: path.resolve(__dirname, '../'),
   entry: './src/main.js',
   output: {
+    // publicPath: '/',
     path: path.resolve(__dirname, '../dist'),
   },
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
-        use: [ 
+        test: /\.(css|less)$/,
+        use: [
           MiniCssExtractPlugin.loader,
-          'css-loader' ,
-          'ssass-loader',
-          // 'postcss-loader'  // style-loader css-loader postcss-loader 区别
+          'css-loader', 
+          'less-loader',
           {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
                 plugins: [
-                  [
-                    'postcss-preset-env',
-                    {
-                      // 其他选项
-                    },
-                  ],
-                ],
-              },
+                  require('autoprefixer')({
+                    overrideBrowserslist: ['last 30 versions', ">2%", "Firefox >=10", "ie 6-11"]
+                  })
+                ]
+              }
             }
           }
-        ]
+        ],
       },
-      {
-        test: /\.less$/i,
-        use: [ 'css-loader', 'less-loader' ]
-      },
+      // {
+      //   test: /\.css$/i,
+      //   use: [ 
+      //     MiniCssExtractPlugin.loader,
+      //     'css-loader' ,
+      //     // 'sass-loader',
+      //     // 'postcss-loader',  // style-loader css-loader postcss-loader 区别
+      //     {
+      //       loader: 'postcss-loader',
+      //       options: {
+      //         postcssOptions: {
+      //           plugins: [
+      //             [
+      //               'postcss-preset-env',
+      //               {
+      //                 // 其他选项
+      //               },
+      //             ],
+      //           ],
+      //         },
+      //       }
+      //     }
+      //   ]
+      // },
+      // {
+      //   test: /\.less$/i,
+      //   use: [ 'css-loader', 'less-loader' ]
+      // },
       {
         test: /\.vue$/,
         use: ['vue-loader']
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'happypack/loader?id=happyBabel'
+        }
+        // use: {
+        //   loader: 'babel-loader',
+        //   options: {
+        //     presets: ['@babel/preset-env']
+        //   }
+        // }
       },
       // {
       //   test: /\.scss$/,
@@ -55,24 +99,32 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          outputPath: 'images/',
-          name: '[name].[ext]'
+          outputPath: './images/',
+          publicPath: '../images',
+          esModule: false,
+          name: '[name].[hash].[ext]'
         }
       },
-      // {
-      //   test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-      //   loader: 'url-loader',
-      //   options: {
-      //     limit: 10000,          
-      //   }
-      // },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          esModule: false,
+          limit: 10000,
+          outputPath:'media/',
+          publicPath: '../media',
+          name: '[name].[hash].[ext]'      
+        }
+      },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
+          esModule: false,
           limit: 10000,
-          outputPath: 'fonts/',
-          name: '[name].[ext]'
+          outputPath:'fonts/',
+          publicPath: '../fonts',
+          name: '[name].[hash].[ext]'
         }
       }
     ]
@@ -80,9 +132,16 @@ module.exports = {
   plugins: [
     new vueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'index.css'
+      filename: 'css/index.css'
     }),
+    new happypack({
+      id: 'happyBabel',
+      loaders:['babel-loader?cacheDirectory']
+    })
   ],
+  optimization: {
+    minimizer: [new CssMinimizerPlugin()],
+  },
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {

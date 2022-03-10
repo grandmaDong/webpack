@@ -46,14 +46,27 @@ export default {
             console.log(index)
         },
         handleProgress (e, file, filelist) {
-            console.log('handleProgress', this)
+            // console.log('handleProgress', this)
+             console.log('handleProgress')
+            let arr = [1, 2, 3]
+            let res = arr.filter(it => it > 1)
+            this.pTest().then(res => console.log(res))
+            console.log(res)
         },
         handleBeforeUpload (file) {
             console.log(file, this.isUploading)
-            this.waittingUploadFlag = true
+            // this.waittingUploadFlag = true
         },
         handleSuccess (e) {
-            console.log(file, this.isUploading)
+            // console.log(file, this.isUploading)
+            console.log('handleSuccess')
+            let arr = [1, 2, 3]
+            let res = arr.filter(it => it > 1)
+        },
+        pTest () {
+            return new Promise((resolve, reject) => {
+                resolve(2)
+            })
         }
     }
 }

@@ -13,7 +13,8 @@ module.exports = merge(webpackBaseConfig, {
   plugins: [new HtmlWebpackPlugin(
     {
       title: 'test environment',
-      template: 'src/template/index.ejs'
+      template: 'src/template/index.ejs',
+      inject: false,
     }
   )],
   devServer: {

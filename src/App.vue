@@ -4,16 +4,16 @@
             <div class="page-title">上传算法功能</div>
         </div>
         <div class="content">
-            <Uploader></Uploader>
+            <uploader></uploader>
         </div>
     </div>
 </template>
 <script>
-import Uploader from './pages/uploader/Uploader.vue'
+import uploader from './pages/uploader/Uploader.vue'
 export default {
     name: 'App',
     components: {
-        Uploader
+        uploader
     }
 }
 </script>
@@ -25,7 +25,6 @@ export default {
     .header {
         height: 88px;
         width: 100%;
-        // background: rgb(49, 121, 254);
         padding: 10px 20px;
         box-shadow: 0 2px 4px #a4adc3;
         .page-title {
@@ -33,9 +32,6 @@ export default {
             color: #fff;
             line-height: 68px;
         }
-    }
-    .content {
-        // padding: 0 20px;
     }
 }
 </style>
