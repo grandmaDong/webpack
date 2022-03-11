@@ -132,7 +132,7 @@ module.exports = {
   plugins: [
     new vueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/index.css'
+      filename: 'css/[name].[hash].css',
     }),
     new happypack({
       id: 'happyBabel',
